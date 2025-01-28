@@ -9,12 +9,15 @@ function openPopup(modal){
   }
   function closePopup(modal){
   modal.classList.remove('popup_is-opened')
+  const form = modal.querySelector('.popup__form'); 
+  if (form) {
+    form.reset(); 
+  }
   }
 
 
 function keyOverlayPop(evt){
   if (evt.target.classList.contains('popup__close')) {
-        document.querySelector('.popup__form').reset()
         const modal = evt.target.closest('.popup'); 
         if (modal) {
           closePopup(modal);

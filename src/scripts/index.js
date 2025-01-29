@@ -2,10 +2,26 @@
 
 import '../pages/index.css';
 import { initialCards } from './cards.js'; 
-import { editButton, addButton, popupEdit, popupNewCard, openPopup, closePopup, keyOverlayPop, popupKeyClose } from './modal.js';
+import { openPopup, closePopup, keyOverlayPop, popupKeyClose } from './modal.js';
 import { createCard, deleteCard, likeEvent} from './card.js'
 
-  const placesList = document.querySelector('.places__list');
+const editButton = document.querySelector('.profile__edit-button');
+const addButton = document.querySelector('.profile__add-button');
+const popupEdit = document.querySelector('.popup_type_edit');
+const popupNewCard = document.querySelector('.popup_type_new-card');
+const formProfile = document.querySelector('.popup__form')
+const nameInput = formProfile.querySelector('.popup__input_type_name')
+const jobInput = formProfile.querySelector('.popup__input_type_description')
+const profileInput = document.querySelector('.profile__title')
+const profileDesc = document.querySelector('.profile__description')
+const cardName = document.querySelector('.popup__input_type_card-name')
+const cardUrl = document.querySelector('.popup__input_type_url')
+const formNewCard = popupNewCard.querySelector('.popup__form')
+const popupImageContainer = document.querySelector('.popup_type_image'); 
+const popupImage = popupImageContainer.querySelector('.popup__image'); 
+const popupText = popupImageContainer.querySelector('.popup__caption'); 
+const placesList = document.querySelector('.places__list');
+
    // @todo: Функция создания карточки
    // @todo: Вывести карточки на страницу
     initialCards.forEach(cardData => {
@@ -13,51 +29,43 @@ import { createCard, deleteCard, likeEvent} from './card.js'
         placesList.append(card);
       });
 
+
 editButton.addEventListener('click',()=>{openPopup(popupEdit)})
+
 addButton.addEventListener('click',()=>{openPopup(popupNewCard)})
-document.addEventListener('click',keyOverlayPop)
-document.addEventListener('keydown',popupKeyClose)
-
-const formElement = document.querySelector('.popup__form')
-const nameInput = formElement.querySelector('.popup__input_type_name')
-const jobInput = formElement.querySelector('.popup__input_type_description')
-const titleInput = document.querySelector('.profile__title')
-const popupDesc = document.querySelector('.profile__description')
+popupEdit.addEventListener('click',keyOverlayPop)
+popupNewCard.addEventListener('click',keyOverlayPop)
+document.querySelector('.popup__content_content_image').addEventListener('click',keyOverlayPop) 
 
 
 
-function handleFormSubmit(evt) {
+function handleFormEditSubmit(evt) {
   evt.preventDefault();
   const name = nameInput.value
   const job = jobInput.value
-  titleInput.textContent = name
-  popupDesc.textContent = job
+  profileInput.textContent = name
+  profileDesc.textContent = job
   closePopup(popupEdit)
 }
-formElement.addEventListener('submit', handleFormSubmit); 
+formProfile.addEventListener('submit', handleFormEditSubmit); 
 
-const cardName = document.querySelector('.popup__input_type_card-name')
-const cardUrl = document.querySelector('.popup__input_type_url')
 
 function addCard(evt) {
   evt.preventDefault()
   const addNewCard = createCard({
     name: cardName.value,
     link: cardUrl.value
-  },deleteCard,likeEvent)
+  },deleteCard,likeEvent,openImage)
   placesList.prepend(addNewCard)
   closePopup(popupNewCard)
+  formNewCard.reset()
 }
-popupNewCard.addEventListener('submit', addCard)
+formNewCard.addEventListener('submit', addCard)
 
 
-const popupImageContainer = document.querySelector('.popup_type_image'); 
-const popupImage = popupImageContainer.querySelector('.popup__image'); 
-const popupText = popupImageContainer.querySelector('.popup__caption'); 
-
-function openImage(image, text) {
-    popupImage.src = image.src; 
-    popupImage.alt = image.alt; 
-    popupText.textContent = text; 
+function openImage(imageSrc, imageName) {
+    popupImage.src = imageSrc; 
+    popupImage.alt = imageName; 
+    popupText.textContent = imageName; 
     openPopup(popupImageContainer); 
 }

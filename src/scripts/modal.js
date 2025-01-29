@@ -1,18 +1,15 @@
-const editButton = document.querySelector('.profile__edit-button');
-const addButton = document.querySelector('.profile__add-button');
-const popupEdit = document.querySelector('.popup_type_edit');
-const popupNewCard = document.querySelector('.popup_type_new-card')
-
 function openPopup(modal){
   modal.classList.add('popup_is-opened')
   modal.classList.add('popup_is-animated')
+  document.addEventListener('keydown',popupKeyClose)
   }
   function closePopup(modal){
   modal.classList.remove('popup_is-opened')
-  const form = modal.querySelector('.popup__form'); 
-  if (form) {
-    form.reset(); 
-  }
+  document.removeEventListener('keydown',popupKeyClose)
+  // const form = modal.querySelector('.popup__form'); 
+  // if (form) {
+  //   form.reset(); 
+  // }
   }
 
 
@@ -37,4 +34,4 @@ function keyOverlayPop(evt){
     }
    }
   }
-  export { editButton, addButton, popupEdit, popupNewCard, openPopup, closePopup, keyOverlayPop, popupKeyClose }
+  export { openPopup, closePopup, keyOverlayPop, popupKeyClose }

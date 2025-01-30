@@ -21,6 +21,11 @@ const popupImageContainer = document.querySelector('.popup_type_image');
 const popupImage = popupImageContainer.querySelector('.popup__image'); 
 const popupText = popupImageContainer.querySelector('.popup__caption'); 
 const placesList = document.querySelector('.places__list');
+const popups = document.querySelectorAll('.popup');
+
+popups.forEach(popup => {
+  popup.classList.add('popup_is-animated');
+});
 
    // @todo: Функция создания карточки
    // @todo: Вывести карточки на страницу

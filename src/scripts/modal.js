@@ -1,6 +1,5 @@
 function openPopup(modal){
   modal.classList.add('popup_is-opened')
-  modal.classList.add('popup_is-animated')
   document.addEventListener('keydown',popupKeyClose)
   }
   function closePopup(modal){

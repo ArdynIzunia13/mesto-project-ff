@@ -35,12 +35,15 @@ popups.forEach(popup => {
       });
 
 
-editButton.addEventListener('click',()=>{openPopup(popupEdit)})
+editButton.addEventListener('click',()=>{
+  nameInput.value = profileInput.textContent
+  jobInput.value = profileDesc.textContent
+  openPopup(popupEdit)})
 
 addButton.addEventListener('click',()=>{openPopup(popupNewCard)})
 popupEdit.addEventListener('click',keyOverlayPop)
 popupNewCard.addEventListener('click',keyOverlayPop)
-document.querySelector('.popup__content_content_image').addEventListener('click',keyOverlayPop) 
+popupImageContainer.addEventListener('click',keyOverlayPop) 
 
 
 

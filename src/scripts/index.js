@@ -77,3 +77,28 @@ function openImage(imageSrc, imageName) {
     popupText.textContent = imageName; 
     openPopup(popupImageContainer); 
 }
+
+const validationConfig = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+}
+
+enableValidation(validationConfig)
+
+function hideError(formElement,inputElement,errorMessage,objSettings) {
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`)
+  inputElement.classList.add(objSettings.inputErrorClass)
+  errorElement.textContent = errorMessage
+  errorElement.classList.add(objSettings.errorClass)
+}
+
+function showError(formElement,inputElement,objSettings) {
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`)
+  inputElement.classList.remove(objSettings.inputErrorClass)
+  errorElement.textContent = ''
+  errorElement.classList.remove(objSettings.errorClass)
+}

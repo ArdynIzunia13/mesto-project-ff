@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { watchFile } = require('fs');
 
 module.exports = {
   entry: {
@@ -15,9 +16,12 @@ module.exports = {
   mode: 'development',
   devServer: {
     static: path.resolve(__dirname, './dist'),
+    watchFiles: ['src/index.html'],
     open: true,
     compress: true,
-    port: 8080
+    port: 8080,
+    hot: true,
+    liveReload:true
   },
   module: {
     rules: [{

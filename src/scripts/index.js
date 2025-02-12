@@ -89,16 +89,37 @@ const validationConfig = {
 
 enableValidation(validationConfig)
 
-function hideError(formElement,inputElement,errorMessage,objSettings) {
+function showError(formElement,inputElement,errorMessage,objSettings) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`)
   inputElement.classList.add(objSettings.inputErrorClass)
   errorElement.textContent = errorMessage
   errorElement.classList.add(objSettings.errorClass)
 }
 
-function showError(formElement,inputElement,objSettings) {
+function hideError(formElement,inputElement,objSettings) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`)
   inputElement.classList.remove(objSettings.inputErrorClass)
   errorElement.textContent = ''
   errorElement.classList.remove(objSettings.errorClass)
+}
+
+function checkInputValidity(formElement,inputElement,objSettings) {
+  if(!inputElement.validity.valid) {
+    showError(formElement,inputElement,inputElement.validationMessage,objSettings) 
+  } else {
+    hideError(formElement,inputElement,objSettings)
+  }
+}
+
+function hasInvalidInput(inputList) {
+  return inputList.some((inputElement)=>{
+    return !inputElement.validity.valid
+  })
+}
+
+function toggleButtonState(inputList,buttonElement) {
+  if(hasInvalidInput(inputList)) {
+    buttonElement.disabled = true
+    
+  }
 }

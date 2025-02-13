@@ -87,7 +87,7 @@ const validationConfig = {
   errorClass: 'popup__error_visible'
 }
 
-enableValidation(validationConfig)
+
 
 function showError(formElement,inputElement,errorMessage,objSettings) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`)
@@ -117,9 +117,25 @@ function hasInvalidInput(inputList) {
   })
 }
 
-function toggleButtonState(inputList,buttonElement) {
+function toggleButtonState(inputList,buttonElement,objSettings) {
   if(hasInvalidInput(inputList)) {
     buttonElement.disabled = true
-    
+    buttonElement.classList.add(objSettings.inactiveButtonClass)
+  } else {
+    buttonElement.disabled = false
+    buttonElement.classList.remove(objSettings.inactiveButtonClass)
   }
 }
+
+function setEventListeners(formElement,objSettings) {
+  const inputList = Array.from(formElement.querySelectorAll(objSettings.inputSelector))
+  const buttonElement = formElement.querySelector(objSettings.submitButtonSelector)
+  toggleButtonState(inputList,buttonElement,objSettings)
+  inputList.forEach((inputElement)=> {
+    inputElement.addEventListener('input', () => {
+        checkInputValidity(formElement, inputElement, objSettings);
+        toggleButtonState(inputList, buttonElement, objSettings);
+      })
+  })
+}
+function enableValidation

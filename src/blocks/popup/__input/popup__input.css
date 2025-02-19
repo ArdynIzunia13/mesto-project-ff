@@ -11,7 +11,7 @@
 }
 
 .popup__input_type_error {
-  border-bottom: red;
+  border-bottom: 1px solid red;
 }
 
 .popup__input:last-of-type {

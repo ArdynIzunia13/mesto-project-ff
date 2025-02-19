@@ -15,7 +15,10 @@
 }
 
 .popup__button_disabled {
-  background: #00000026;
+  border: 1px solid #C4C4C4;
+  background-color: transparent;
+  color: #C4C4C4;
+  pointer-events: none;
 }
 
 .popup__button:hover {

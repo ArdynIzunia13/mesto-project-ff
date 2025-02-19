@@ -4,6 +4,7 @@ import '../pages/index.css';
 import { initialCards } from './cards.js'; 
 import { openPopup, closePopup, keyOverlayPop, popupKeyClose } from './modal.js';
 import { createCard, deleteCard, likeEvent} from './card.js'
+import { enableValidation, clearValidation } from './validation.js';
 
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
@@ -38,9 +39,12 @@ popups.forEach(popup => {
 editButton.addEventListener('click',()=>{
   nameInput.value = profileInput.textContent
   jobInput.value = profileDesc.textContent
+  clearValidation(formNewCard,validationConfig)
   openPopup(popupEdit)})
 
-addButton.addEventListener('click',()=>{openPopup(popupNewCard)})
+addButton.addEventListener('click',()=>{
+  clearValidation(formNewCard,validationConfig)
+  openPopup(popupNewCard)})
 popupEdit.addEventListener('click',keyOverlayPop)
 popupNewCard.addEventListener('click',keyOverlayPop)
 popupImageContainer.addEventListener('click',keyOverlayPop) 
@@ -87,55 +91,12 @@ const validationConfig = {
   errorClass: 'popup__error_visible'
 }
 
+enableValidation(validationConfig)
 
-
-function showError(formElement,inputElement,errorMessage,objSettings) {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`)
-  inputElement.classList.add(objSettings.inputErrorClass)
-  errorElement.textContent = errorMessage
-  errorElement.classList.add(objSettings.errorClass)
-}
-
-function hideError(formElement,inputElement,objSettings) {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`)
-  inputElement.classList.remove(objSettings.inputErrorClass)
-  errorElement.textContent = ''
-  errorElement.classList.remove(objSettings.errorClass)
-}
-
-function checkInputValidity(formElement,inputElement,objSettings) {
-  if(!inputElement.validity.valid) {
-    showError(formElement,inputElement,inputElement.validationMessage,objSettings) 
-  } else {
-    hideError(formElement,inputElement,objSettings)
+const config = {
+  baseUrl: 'https://nomoreparties.co/v1/wff-cohort-31/cards',
+  headers: {
+    authorization: '12f46a8e-652d-4cc1-8628-1879e9f64fa6',
+    'Content-Type': 'application/json'
   }
 }
-
-function hasInvalidInput(inputList) {
-  return inputList.some((inputElement)=>{
-    return !inputElement.validity.valid
-  })
-}
-
-function toggleButtonState(inputList,buttonElement,objSettings) {
-  if(hasInvalidInput(inputList)) {
-    buttonElement.disabled = true
-    buttonElement.classList.add(objSettings.inactiveButtonClass)
-  } else {
-    buttonElement.disabled = false
-    buttonElement.classList.remove(objSettings.inactiveButtonClass)
-  }
-}
-
-function setEventListeners(formElement,objSettings) {
-  const inputList = Array.from(formElement.querySelectorAll(objSettings.inputSelector))
-  const buttonElement = formElement.querySelector(objSettings.submitButtonSelector)
-  toggleButtonState(inputList,buttonElement,objSettings)
-  inputList.forEach((inputElement)=> {
-    inputElement.addEventListener('input', () => {
-        checkInputValidity(formElement, inputElement, objSettings);
-        toggleButtonState(inputList, buttonElement, objSettings);
-      })
-  })
-}
-function enableValidation

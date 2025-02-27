@@ -93,10 +93,19 @@ const validationConfig = {
 
 enableValidation(validationConfig)
 
+Promise.all
+
 const config = {
   baseUrl: 'https://nomoreparties.co/v1/wff-cohort-31/cards',
   headers: {
     authorization: '12f46a8e-652d-4cc1-8628-1879e9f64fa6',
     'Content-Type': 'application/json'
   }
+}
+
+function checkResponse(res) {
+  if (res.ok) {
+    return res.json(); // Если ответ успешный, возвращаем данные в формате JSON
+  }
+  return Promise.reject(`Ошибка: ${res.status}`); // Если ответ неуспешный, возвращаем ошибку
 }

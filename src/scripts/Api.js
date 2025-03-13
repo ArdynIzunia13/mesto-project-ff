@@ -56,7 +56,7 @@ const config = {
   };
   
   // Удаление карточки
-  export const deleteCard = (cardId) => {
+  export const deleteCardApi = (cardId) => {
     return fetch(`${config.baseUrl}/cards/${cardId}`, {
       method: 'DELETE',
       headers: config.headers

@@ -1,4 +1,4 @@
-import { deleteCard as deleteCardApi, likeCard, unlikeCard } from './api.js';
+import { deleteCardApi, likeCard, unlikeCard } from './api.js';
 
 function createCard(cardData, callbackDeleteCard, likeCard, openImage, userId) {
   const cardTemplate = document.querySelector('#card-template').content;

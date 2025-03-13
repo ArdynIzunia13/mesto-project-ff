@@ -2,7 +2,7 @@ import '../pages/index.css';
 import { openPopup, closePopup, keyOverlayPop, popupKeyClose } from './modal.js';
 import { createCard, deleteCard, likeEvent } from './card.js';
 import { enableValidation, clearValidation } from './validation.js';
-import { getUserInfo, getInitialCards, editProfile, addNewCard, deleteCard as deleteCardApi, likeCard, unlikeCard, updateAvatar } from './api.js';
+import { getUserInfo, getInitialCards, editProfile, addNewCard, deleteCardApi, likeCard, unlikeCard, updateAvatar } from './api.js';
 
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');

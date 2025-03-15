@@ -61,7 +61,7 @@ function addCard(evt) {
   evt.preventDefault();
   const name = cardName.value;
   const link = cardUrl.value;
-  const saveButton = formProfile.querySelector('.popup__button');
+  const saveButton = formNewCard.querySelector('.popup__button');
   const initialText = saveButton.textContent;
   saveButton.textContent = 'Сохранение...';
 
@@ -153,6 +153,7 @@ Promise.all([getUserInfo(), getInitialCards()])
     userId = userData._id; // Сохраняем идентификатор пользователя
     profileInput.textContent = userData.name;
     profileDesc.textContent = userData.about;
+    avatarEditButton.style.backgroundImage = `url(${userData.avatar})`;
 
     cards.forEach(cardData => {
       const card = createCard(cardData, deleteCard, likeCard, openImage, userId);

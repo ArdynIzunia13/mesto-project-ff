@@ -16,22 +16,19 @@ function hideInputError(formElement, inputElement, settings) {
 
 // Функция для проверки валидности поля
 function checkInputValidity(formElement, inputElement, settings) {
-  if (inputElement.name === "name" || inputElement.name === "place-name") {
-    const regex = /^[a-zA-Zа-яА-Я\s-]+$/;
-    if (!regex.test(inputElement.value)) {
-      inputElement.setCustomValidity(inputElement.dataset.errorMessage);
-    } else {
-      inputElement.setCustomValidity("");
-    }
-  }
-
   if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage, settings);
+    let errorMessage = inputElement.validationMessage; // Стандартное сообщение
+
+    // Если ошибка связана с несоответствием pattern и есть кастомное сообщение
+    if (inputElement.validity.patternMismatch && inputElement.dataset.errorMessage) {
+      errorMessage = inputElement.dataset.errorMessage;
+    }
+
+    showInputError(formElement, inputElement, errorMessage, settings);
   } else {
     hideInputError(formElement, inputElement, settings);
   }
 }
-
 // Функция для переключения состояния кнопки
 function toggleButtonState(inputList, buttonElement, settings) {
   const hasInvalidInput = inputList.some(inputElement => !inputElement.validity.valid);
